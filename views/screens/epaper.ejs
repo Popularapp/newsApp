@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, minimum-scale=1">
+    <meta property="og:title" content="<%=title%>" />
+    <meta property="og:url" content="https://www.<%= website %>/" />
+    <meta property="og:image" content="/images/<%= imageReplacer %>">
+    <title><%=title%></title>
+    <link rel="icon" href="/images/<%=favicon%>" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        .left-arrow{
+            background-color: #eeeeee;
+            color: black;
+            border-radius: 50%;
+            padding: 8px 16px;
+            box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .right-arrow{
+            background-color: #eeeeee;
+            color: black;
+            border-radius: 50%;
+            padding: 8px 16px;
+            box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        div.scrollmenu3 a{
+            padding: 5px;
+            margin: 0px 10px;
+        }
+        div.scrollmenu3 a img{
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body onload="getData()">
+<header style="overflow: unset">
+    <nav class="navbar navbar-expand-lg">
+        <div class="row" style="width:100%;margin: 0;height: 48px">
+            <div class="col-lg-3 col-6" >
+                <a class="navbar-brand" href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 32px;margin-top: 10px"></a>
+            </div>
+            <div class="col-lg-5 col-2"></div>
+            <div class="col-lg-4 col-4">
+                <div class="row icons" style="text-align: center;overflow: hidden">
+                    <div class="col-4">
+                        <h5>
+                            <a href="#career" data-bs-toggle="modal" style="text-decoration: none">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;<b id="carrer">संवादाता</b>
+                            </a>
+
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            <a href="/epaper" style="text-decoration: none;color: black">
+                                <i class="far fa-newspaper"></i>&nbsp;&nbsp;<b id="epaper">ई-पेपर</b>
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <%if(logged_in == 0){%>
+                            <h5>
+                                <a href="/login" style="text-decoration: none">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">लॉग इन</b>
+                                </a>
+                            </h5>
+                        <%} else {%>
+                            <h5>
+                                <a href="#user-menu" data-bs-toggle="modal" style="text-decoration: none;">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">अकाउंट</b>
+                                </a>
+                            </h5>
+
+                            <div class="modal fade" id="user-menu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" onclick="window.location.href ='/user-profile'">
+                                                    <a href="/user-profile" style="color: #1c1c1c">User Profile</a>
+                                                </li>
+                                                <li class="list-group-item" onclick="window.location.href ='/logout'">
+                                                    <a href="/logout" style="color: #1c1c1c">Logout</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main style="height: 100vh;overflow-y: scroll">
+    <br>
+    <div class="container">
+        <%for(var i=0;i<epaperCategory.length;i++){%>
+        <div class="row">
+            <div class="col-lg-10 col-6">
+                <h4><%=epaperCategory[i].name%></h4>
+            </div>
+            <div class="col-lg-1 col-3" style="text-align: right">
+                <h5><a onclick="moveleft('<%=epaperCategory[i].id%>')" class="left-arrow"><i class="fas fa-chevron-left"></i></a></h5>
+            </div>
+            <div class="col-lg-1 col-3">
+                <h5><a onclick="moveright('<%=epaperCategory[i].id%>')" class="right-arrow"><i class="fas fa-chevron-right"></i></a></h5>
+            </div>
+        </div>
+        <div class="scrollmenu3" id="insert-epaper<%=epaperCategory[i].id%>" style="height: 250px;margin-top: 10px;">
+        </div>
+        <br>
+        <%}%>
+    </div>
+</main>
+
+<%for(var i=0;i<epaper.length;i++){%>
+    <input type="hidden" name="" id="k<%=i%>" value="<%= epaper[i].id %>">
+<%}%>
+<input type="hidden" name="" id="length" value=<%=epaper.length%>>
+<footer>
+    <div class="row">
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/news" class="de-active"><i class="fas fa-home"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/news" class="de-active">होम</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/search" class="de-active"><i class="fas fa-search"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/search" class="de-active">सर्च</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/videos" class="de-active"><i class="fas fa-play-circle"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/videos" class="de-active">वीडियो</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/directory" class="de-active"><i class="fas fa-folder"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/directory" class="de-active">वर्गीकृत</a></b></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!--Bootstrap links-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+<script>
+    function moveleft(id){
+        // console.log(id);
+        const conent = document.querySelector('#insert-epaper'+ id);
+        // if(conent.scrollLeft > 1050){
+            // conent.scrollLeft = -1050;
+        // } else {
+            conent.scrollLeft -= 50;
+        // }
+        // event.preventDefault();
+    }
+    function moveright(id){
+        // console.log(id);
+        const conent = document.querySelector('#insert-epaper'+ id);
+        // if(conent.scrollLeft > 1050){
+        // conent.scrollLeft = -1050;
+        // } else {
+        conent.scrollLeft += 50;
+        // }
+        // event.preventDefault();
+    }
+    var k = document.getElementById('k0').value;
+    var length = parseInt(document.getElementById('length').value);
+    var j = 0
+    function getData(){
+        $.ajax({
+            url:"http://<%= website %>/getEpaper/" + k,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(epaper){
+                if(epaper.length !=0){
+                        $('#insert-epaper' + epaper[0].category).append('<a href="/pdf/'+epaper[0].id+'" style="width: 180px;background-color: white;height: 100%;top: 0%;position: relative;overflow: hidden"><img src="http://admin.<%= website %>/Epaper/'+epaper[0].id+'/'+epaper[0].path+'" alt="" width="90%" height="220px" style="box-shadow: 0px 0px 10px rgba(0,0,0,0.2)"><h6 style="margin-top: 5px">'+epaper[0].created_at+'</h6></a>');
+                    $("img").bind("error",function(){
+                        // Replacing image source
+                        $(this).attr("src","/images/<%= imageReplacer %>");
+                    });
+                }
+                j++;
+                if(document.getElementById('k' + j) != null) {
+                    k = document.getElementById('k' + j).value;
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+
+        setInterval(function (){
+            if(j<length){
+                $.ajax({
+                    url:"http://<%= website %>/getEpaper/" + k,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(epaper){
+                        if(epaper.length !=0){
+                            $('#insert-epaper' + epaper[0].category).append('<a href="/pdf/'+epaper[0].id+'" style="width: 180px;background-color: white;height: 100%;top: 0%;position: relative;overflow: hidden"><img src="http://admin.<%= website %>/Epaper/'+epaper[0].id+'/'+epaper[0].path+'" alt="" width="90%" height="220px" style="box-shadow: 0px 0px 10px rgba(0,0,0,0.2)"><h6 style="margin-top: 5px">'+epaper[0].created_at+'</h6></a>');
+                            $("img").bind("error",function(){
+                                // Replacing image source
+                                $(this).attr("src","/images/<%= imageReplacer %>");
+                            });
+                        }
+                        j++;
+                        if(document.getElementById('k' + j) != null) {
+                            k = document.getElementById('k' + j).value;
+                        }
+                    },
+                    error: function(err){
+                        console.log(err.status);
+                    }
+                });
+            }
+        },1000);
+    }
+    $(document).ready(function (){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/<%= imageReplacer %>");
+        });
+    });
+</script>
+</body>
+</html>

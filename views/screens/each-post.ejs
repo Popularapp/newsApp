@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1">
+    <meta property="og:title" content="<%= user_post[0].ad_title%>" />
+    <meta name="og:description" content="<%= user_post[0].description%>">
+    <meta property="og:url" content="https://www.<%= website %>/each-post/<%= user_post[0].id%>" />
+    <meta property="og:image" content="/directory_images/<%= post_images[0].posts_id%>/<%= post_images[0].path%>">
+    <title><%= user_post[0].ad_title%></title>
+    <link rel="icon" href="/images/<%=favicon%>" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        p{
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<header style="z-index: 6;overflow: unset">
+    <div class="row" style="margin: 0;padding: 10px 0px 10px 0px;width: 100%;">
+        <div class="col-1 col-lg-1" style="text-align: center">
+            <a href="#" onclick="history.back()" style="color:black;"><i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="col-4 col-lg-1">
+            <a href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 23px"></a>
+        </div>
+        <div class="col-5 col-lg-9">
+
+        </div>
+        <div class="col-1 col-lg-1" style="text-align: right">
+            <p style="padding-top: 3px"><a href="#sharinglink" data-bs-toggle="modal" style="color: black;"><i class="fas fa-share-alt"></i></a></p>
+        </div>
+    </div>
+    <div class="modal fade" id="sharinglink" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4" style="text-align: center">
+                            <a href="https://www.facebook.com/sharer.php?u=<%= website %>/directory" target="_blank" style="background-color: #3b5998;font-size: 24px;color: white;padding: 5px 14px;border-radius: 50%;text-decoration: none">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                        <div class="col-4" style="text-align: center">
+                            <a href="https://wa.me/?text=http://<%= website %>/each-post/<%=user_post[0].id%> %0D%0Dन्यूज़ के लिए आज ही ऐप इंस्टॉल करें।%0Dhttps://play.google.com/store/apps/details?id=<%=appId%>%0D%0Dसंपर्क करें 902-412-3007%0DGmail: <%= website %>@gmail.com%0D%0Dवीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें ।%0Dhttps://www.youtube.com/channel/UCMSgxxG0wN5lSjHP1mXKjBA
+"  target="_blank" style="background-color: #25d366;font-size: 24px;color: white;padding: 5px 12px;border-radius: 50%;text-decoration: none"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                        <div class="col-4" style="text-align: center">
+                            <a href="https://twitter.com/share?url=http://<%= website %>/each-news/<%=user_post[0].id%>&text=<%= user_post[0].ad_title %>" data-show-count="false" target="_blank" style="background-color: #00acee;text-decoration: none;font-size: 24px;color: white;border-radius: 50%;padding: 5px 10px"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<main class="mainbody">
+    <div class="row" style="padding: 0;">
+        <div class="col-lg-3 col-md-12">
+            <div class="scrollmenu4">
+                <ul>
+                    <% for(var i=0;i<dcategory.length;i++){ %>
+                    <li onclick="window.location.href = '/directory/<%=dcategory[i].name%>'" id="catscrollbar<%=i%>">
+                        <a href="/directory/<%=dcategory[i].name%>"><%= dcategory[i].name%> </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 each-news-main">
+            <div class="each-news-image" style="height: 200px">
+                <div id="carouselExampleIndicators" class="carousel slide" style="background-color: black;height: 200px">
+                    <div class="carousel-inner">
+                        <% for(var k=0;k<post_images.length;k++){ %>
+                            <%if(k==0){%>
+                                <div class="carousel-item active" style="height: 200px;text-align: center">
+                                    <img src="/directory_images/<%= post_images[k].posts_id%>/<%= post_images[k].path%>" onclick="window.location.href = '/images/directory_images/<%= post_images[k].posts_id%>/<%= post_images[k].path%>'" alt="First slide" style="max-width: 100%;max-height: 100%;">
+                                </div>
+                            <%} else {%>
+                                <div class="carousel-item" style="height: 200px;text-align: center">
+                                    <img src="/directory_images/<%= post_images[k].posts_id%>/<%= post_images[k].path%>" onclick="window.location.href = '/images/directory_images/<%= post_images[k].posts_id%>/<%= post_images[k].path%>'" alt="First slide" style="max-width: 100%;max-height: 100%;">
+                                </div>
+                            <% } %>
+                        <%}%>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="card" style="padding: 20px;margin-top: 10px">
+                <h2 style="font-weight: 700;"><i class="fas fa-rupee-sign"></i> <%=user_post[0].price%></h2>
+                <h6 style="color: #797979"><%=user_post[0].ad_title%></h6>
+                <br>
+                <div class="row">
+                    <div class="col-8" style="color: #797979;">
+                        <p style="text-align: left;margin: 0;"><%=user_post[0].address%>,<%=user_post[0].city%></p>
+                    </div>
+                    <div class="col-4" style="color: #797979;">
+                        <%var a = user_post[0].created_at;%>
+                        <%var d = new Date();%>
+                        <%if(d.toString().slice(4,10)==a.toString().slice(4,10)){%>
+                            <%var date = 'Today';%>
+                        <%} else {%>
+                            <%var date = a.toString().slice(4,10);%>
+                        <%}%>
+                        <p style="margin: 0;text-align: right"><%=date%></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="padding: 20px;margin-top: 10px">
+                <h5>Seller Information</h5>
+                <h4 style="color: #797979"><%=user_post[0].phone_number%></h4>
+                <br>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="tel:<%=user_post[0].phone_number%>" class="btn btn-danger" style="background-color: #ED3237;border: 0;width: 100%">Call The Seller</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card" style="padding: 20px;margin-top: 10px">
+                <h5>Description</h5>
+                <h6 style="color: #797979"><%=user_post[0].description%></h6>
+                <hr>
+                <h5>Details</h5>
+                <div class="row">
+                    <div class="col-12">
+                        <%if(user_post[0].brand != 'undefined'){%>
+                        <p>Brand : <%=user_post[0].brand%></p>
+                        <%}%>
+                        <%if(user_post[0].year != 0){%>
+                        <p>Year : <%=user_post[0].year%></p>
+                        <%}%>
+                        <%if(user_post[0].fuel != 'undefined'){%>
+                        <p>Fuel : <%=user_post[0].fuel%></p>
+                        <%}%>
+                        <%if(user_post[0].transmission != 'undefined'){%>
+                        <p>Transmission : <%=user_post[0].transmission%></p>
+                        <%}%>
+                        <%if(user_post[0].km_driven != 0){%>
+                        <p>KM Driven : <%=user_post[0].km_driven%></p>
+                        <%}%>
+                        <%if(user_post[0].no_of_owners != 'undefined'){%>
+                        <p>No. of owners : <%=user_post[0].no_of_owners%></p>
+                        <%}%>
+                        <%if(user_post[0].type != 'undefined'){%>
+                        <p>Type : <%=user_post[0].type%></p>
+                        <%}%>
+                        <%if(user_post[0].property != 'undefined'){%>
+                        <p>Property : <%=user_post[0].property%></p>
+                        <%}%>
+                        <%if(user_post[0].bedroom != 0){%>
+                        <p>Bedrooms : <%=user_post[0].bedroom%></p>
+                        <%}%>
+                        <%if(user_post[0].bathroom != 0){%>
+                        <p>Bathrooms : <%=user_post[0].bathroom%></p>
+                        <%}%>
+                        <%if(user_post[0].construction_status != 'undefined'){%>
+                        <p>Construction Status : <%=user_post[0].construction_status%></p>
+                        <%}%>
+                        <%if(user_post[0].listed_by != 'undefined'){%>
+                        <p>Listed By : <%=user_post[0].listed_by%></p>
+                        <%}%>
+                        <%if(user_post[0].furnishing != 'undefined'){%>
+                        <p>Furnishing : <%=user_post[0].furnishing%></p>
+                        <%}%>
+                        <%if(user_post[0].total_floors != 0){%>
+                        <p>Total Floors : <%=user_post[0].total_floors%></p>
+                        <%}%>
+                        <%if(user_post[0].area != 0){%>
+                        <p>Area : <%=user_post[0].area%></p>
+                        <%}%>
+                        <%if(user_post[0].floor_no != 0){%>
+                        <p>Floor No. : <%=user_post[0].floor_no%></p>
+                        <%}%>
+                        <%if(user_post[0].car_parking != 0){%>
+                        <p>Car Parking : <%=user_post[0].car_parking%></p>
+                        <%}%>
+                        <%if(user_post[0].company_role != 'undefined'){%>
+                        <p>Company Role : <%=user_post[0].company_role%></p>
+                        <%}%>
+                        <%if(user_post[0].facing != 'undefined'){%>
+                        <p>Facing : <%=user_post[0].facing%></p>
+                        <%}%>
+                        <%if(user_post[0].name != 'undefined'){%>
+                        <p>Name : <%=user_post[0].name%></p>
+                        <%}%>
+                        <%if(user_post[0].bachelors_allowed != 'undefined'){%>
+                        <p>Bachelors Allowed : <%=user_post[0].bachelors_allowed%></p>
+                        <%}%>
+                        <%if(user_post[0].salary_period != 'undefined'){%>
+                        <p>Salary Period : <%=user_post[0].salary_period%></p>
+                        <%}%>
+                        <%if(user_post[0].position_type != 'undefined'){%>
+                        <p>Position Type : <%=user_post[0].position_type%></p>
+                        <%}%>
+                        <%if(user_post[0].salary_from != 0){%>
+                        <p>Salary From : <%=user_post[0].salary_from%></p>
+                        <%}%>
+                        <%if(user_post[0].salary_to != 0){%>
+                        <p>Salary To : <%=user_post[0].salary_to%></p>
+                        <%}%>
+                        <%if(user_post[0].appliances != 'undefined'){%>
+                        <p>Appliances : <%=user_post[0].appliances%></p>
+                        <%}%>
+                        <%if(user_post[0].furniture != 'undefined'){%>
+                        <p>Furniture : <%=user_post[0].furniture%></p>
+                        <%}%>
+                        <%if(user_post[0].fashion != 'undefined'){%>
+                        <p>Fashion : <%=user_post[0].fashion%></p>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</main>
+
+<script>
+    $(document).ready(function (){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/<%= imageReplacer %>");
+        });
+    });
+</script>
+<%- include('../navigation/footer') %>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="<%=title%>" />
+    <meta property="og:url" content="https://www.<%= website %>/" />
+    <meta property="og:image" content="/images/<%= imageReplacer %>">
+    <title><%=title%></title>
+    <link rel="icon" href="/images/<%=favicon%>" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        body{
+            background-color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            .r1{
+                width: 100%;
+                transform: translateX(0%);
+                margin-left: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<input type="hidden" name="al" id="al" value=<%= ads.length %>>
+
+<br>
+    <% for(var i =0;i<ads.length;i++){ %>
+        <div class="container" id="c<%= i %>" style="position: absolute;z-index: <%= i %>;display: block;margin: 0;left: 50%;transform: translateX(-50%);text-align: center">
+            <div class="row">
+                <div class="col-6" style="text-align: left;">
+                    <p><a href="/news" style="color: black;text-decoration: none">SKIP</a></p>
+                </div>
+                <div class="col-6" style="text-align: right;">
+                    <h4 onclick="hide_container(<%= i %>)"><i class="fas fa-times"></i></h4>
+                </div>
+            </div>
+            <div class="row r1" style="background: white;width: 100%;display: flex;align-items: center;">
+                <div class="col-lg-4"></div>
+                <div class="col-12 col-lg-3" style="text-align: center">
+                    <img src="http://admin.<%= website %>/ads_images/<%= ads[i].image_path %>" alt="ads" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    <%}%>
+
+
+<!--Bootstrap links-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!---->
+<script>
+    setInterval(function (){
+        var b1 = window.location.href;
+        var c1 = b1+ 'news';
+        window.location.href = c1 ;
+    },15000);
+
+    var l = document.getElementById('al').value ;
+    if(l==0){
+        window.location.href = window.location.href + 'news';
+    }
+    function hide_container(i){
+        var count=0;
+        var a = 'c' + i;
+        document.getElementById(a).style.display = "none";
+        for(var j=0;j<l;j++){
+            if(document.getElementById('c' + j ).style.display == "none"){
+                count++;
+            }
+        }
+        if(count == l){
+            var b = window.location.href;
+            var c = b + 'news';
+            window.location.href = c ;
+        }
+    }
+    $(document).ready(function (){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/<%= imageReplacer %>");
+        });
+    });
+</script>
+</body>
+</html>

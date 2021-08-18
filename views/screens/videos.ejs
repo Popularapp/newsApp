@@ -1,0 +1,203 @@
+<%- include('../navigation/header') %>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="row" style="width:100%;margin: 0;height: 48px">
+            <div class="col-lg-3 col-6" >
+                <a class="navbar-brand" href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 32px;margin-top: 10px"></a>
+            </div>
+            <div class="col-lg-5 col-2"></div>
+            <div class="col-lg-4 col-4">
+                <div class="row icons" style="text-align: center;overflow: hidden">
+                    <div class="col-4">
+                        <h5>
+                            <a href="#career" data-bs-toggle="modal" style="text-decoration: none">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;<b id="carrer">संवादाता</b>
+                            </a>
+
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            <a href="/epaper" style="text-decoration: none">
+                                <i class="far fa-newspaper"></i>&nbsp;&nbsp;<b id="epaper">ई-पेपर</b>
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <%if(logged_in == 0){%>
+                            <h5>
+                                <a href="/login" style="text-decoration: none">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">लॉग इन</b>
+                                </a>
+                            </h5>
+                        <%} else {%>
+                            <h5>
+                                <a href="#user-menu" data-bs-toggle="modal" style="text-decoration: none;">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">अकाउंट</b>
+                                </a>
+                            </h5>
+
+                            <div class="modal fade" id="user-menu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" onclick="window.location.href ='/user-profile'">
+                                                    <a href="/user-profile" style="color: #1c1c1c">User Profile</a>
+                                                </li>
+                                                <li class="list-group-item" onclick="window.location.href ='/logout'">
+                                                    <a href="/logout" style="color: #1c1c1c">Logout</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container-fluid c7">
+    <div class="row" id="moreVideo">
+            <% var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;%>
+            <% var match = (videos[0].url).match(regExp); %>
+            <% var str = (match&&match[7].length==11)? match[7] : false;%>
+            <div class="col-lg-3 col-md-12" style="padding: 5px;overflow: hidden">
+                <div class="card c4" style="position: relative">
+                    <img src="/images/extra1.png" alt="" style="position: absolute;top:18px;width: 40px;height: 40px;border-radius: 50%;left: 19px">
+                    <div class="video">
+                        <iframe width="100%" height="100%" id="youtube-video0"  src="https://www.youtube.com/embed/<%= str %>?controls=1&autoplay=1" frameborder="0"  allowfullscreen></iframe>
+                        <br>
+                    </div>
+                    <br>
+                    <a href="/each-news/<%=videos[0].news_id%>" style="text-decoration: none;color: black;">
+                        <p style="text-align: justify;"><b style="color: <%=videos[0].hcolor%>"><%=videos[0].title%></b>:<%=videos[0].short_description%></p>
+                    </a>
+                    <div class="row" style="width: 100%;padding: 0;margin: 0">
+                        <div class="col-8 col-lg-7">
+                            <%if(videos[0].sc_name !=null){%>
+                                <p class="cat"><%= videos[0].sc_name %></p>
+                            <%} else {%>
+                                <p class="cat"><%= videos[0].c_name %></p>
+                            <%}%>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                            <p><a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/<%= videos[0].news_id %>" target="_blank" style="color: #B4B4B4;text-decoration: none">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a></p>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                            <p><a href="https://wa.me/?text=http://<%= website %>/each-news/<%=videos[0].news_id%>"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i></a></p>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                            <p><a href="https://twitter.com/share?url=http://<%= website %>/each-news/<%=videos[0].news_id%>&text=" data-show-count="false" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-twitter"></i></a></p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+    </div>
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/news" class="de-active"><i class="fas fa-home"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/news" class="de-active">होम</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/search" class="de-active"><i class="fas fa-search"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/search" class="de-active">सर्च</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/videos" class="active"><i class="fas fa-play-circle"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/videos" class="active">वीडियो</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/directory" class="de-active"><i class="fas fa-folder"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/directory" class="de-active">वर्गीकृत</a></b></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!--Bootstrap links-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!---->
+<script>
+    var k = 1;
+    setInterval(function (){
+            $.ajax({
+                url:"http://<%= website %>/getVideos/" + k,
+                dataType: "jsonp",
+                type:"GET",
+                success: function(videos){
+                    if(videos.length !=0){
+                        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+                        var match = (videos[0].url).match(regExp);
+                        var str = (match&&match[7].length==11)? match[7] : false;
+                        $('#moreVideo').append('<div class="col-lg-3 col-md-12" style="padding: 5px"><div class="card c4" style="position: relative"><img src="/images/extra1.png" alt="" style="position: absolute;top:18px;width: 40px;height: 40px;border-radius: 50%;left: 19px"><div class="video"><iframe width="100%" height="100%" id="youtube-video'+k+'"  src="https://www.youtube.com/embed/'+str+'?controls=1" frameborder="0"  allowfullscreen></iframe><br></div><br><a href="/each-news/'+videos[0].news_id+'" style="text-decoration: none;color: black"><p style="text-align: justify"><b style="color: '+videos[0].hcolor+'">'+videos[0].title+'</b>:'+videos[0].short_description+'</p></a><div class="row" style="width: 100%;padding: 0;margin: 0"><div class="col-8 col-lg-7"><p class="cat">'+( videos[0].sc_name != null ? videos[0].sc_name : videos[0].c_name )+'</p></div><div class="col-1 col-lg-1"><p><a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/'+ videos[0].news_id +'" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-facebook-f"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://wa.me/?text= http://<%= website %>/each-news/'+ videos[0].news_id +'"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://twitter.com/share?url=http://<%= website %>/each-news/'+videos[0].news_id+'&text=" data-show-count="false" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-twitter"></i></a></p></div></div></div><br></div>')
+                    }
+                    k=k+1;
+                },
+                error: function(err){
+                    console.log(err.status);
+                }
+            });
+    },1000);
+</script>
+<%- include('../navigation/footer') %>

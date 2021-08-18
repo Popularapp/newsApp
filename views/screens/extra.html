@@ -1,0 +1,241 @@
+<%if(logged_in == 0){%>
+<a href="#city-not-logged-in" class="btn btn-primary" data-bs-toggle="modal" id="sell-city"> <i class="fas fa-plus-circle"></i> शहर चुनें</a>
+<div class="modal fade" id="city-not-logged-in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="text-align: center;">Please Login First</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/login" class="btn btn-primary" style="background-color: #ED3237;border: 0;width: 100%">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%} else {%>
+<a href="#city-logged-in" class="btn btn-primary" data-bs-toggle="modal" id="sell-city"> <i class="fas fa-plus-circle"></i> शहर चुनें</a>
+<div class="modal fade" id="city-logged-in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="text-align: center;">अपना शहर चुनें</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/user_filter" method="post">
+                    <div class="row">
+                        <% for(var i=0;i<subCategories.length;i++){ %>
+                        <%var k = 0%>
+                        <%if(user_filter.length != 0){%>
+                        <%for(var l = 0;l<user_filter.length;l++){%>
+                        <%if(user_filter[l].sub_category_name == subCategories[i].name){%>
+                        <%k++%>
+                        <%}%>
+                        <%}%>
+                        <%}%>
+                        <%if(k>0){%>
+                        <div class="col-lg-3 col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="user_filter" value="<%= subCategories[i].name %>" id="<%= subCategories[i].name %>" checked>
+                                <label class="form-check-label" for="<%= subCategories[i].name %>">
+                                    <%= subCategories[i].name %>
+                                </label>
+                            </div>
+                        </div>
+                        <%} else {%>
+                        <div class="col-lg-3 col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="user_filter" value="<%= subCategories[i].name %>" id="<%= subCategories[i].name %>">
+                                <label class="form-check-label" for="<%= subCategories[i].name %>">
+                                    <%= subCategories[i].name %>
+                                </label>
+                            </div>
+                        </div>
+                        <%}%>
+                        <%}%>
+                    </div>
+                    <input type="hidden" name="user_id" id="user_id" value=<%=user_id%>><br>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" style="background-color: #ED3237;border: 0;width: 100%">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%}%>
+
+
+<%if(logged_in == 0){%>
+<div class="row">
+    <div class="col-12" style="padding: 8px;text-align: center;background-color: #ED3237">
+        <a href="#city-not-logged-in" data-bs-toggle="modal" id="sell-city1" style="color: white"><i class="fas fa-plus-circle"></i> शहर चुनें</a>
+    </div>
+</div>
+<%} else {%>
+<%if(user_filter.length == 0){%>
+<div class="row">
+    <div class="col-12" style="padding: 8px;text-align: center;background-color: #ED3237">
+        <a href="#city-logged-in" data-bs-toggle="modal" id="sell-city1" style="color: white"><i class="fas fa-plus-circle"></i> शहर चुनें</a>
+    </div>
+</div>
+<%} else {%>
+<div class="row">
+    <div class="col-10">
+        <div class="scrollmenu3">
+            <%for(var l = 0;l<user_filter.length;l++){%>
+            <a href="#subcat<%=l%>"><%=user_filter[l].sub_category_name%></a>
+            <%}%>
+        </div>
+    </div>
+    <div class="col-2" style="padding: 8px;text-align: center">
+        <a href="#city-logged-in" data-bs-toggle="modal" id="sell-city1"><i class="fas fa-plus-circle"></i></a>
+    </div>
+</div>
+<%}%>
+<%}%>
+
+https://wa.me/?text=http://<%= website %>/each-news/'+ news[i].news_id +'  न्यूज़ के लिए आज ही ऐप इंस्टॉल करें। https://play.google.com/store/apps/details?id=<%=appId%>    संपर्क करें 902-412-3007  Gmail:<%= website %>@gmail.com  वीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें । https://www.youtube.
+
+
+<% for(var i=0;i<cities.length;i++){ %>
+<tr>
+    <td onclick="window.location.href = '/city/<%= cities[i].name%>'">
+        <a href="/city/<%= cities[i].name%>" style="text-decoration: none"><%= cities[i].name%></a>
+    </td>
+</tr>
+<% } %>
+
+
+<div class="container">
+    <div id="epaper-slider" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <%for(var i=0;i<epaper.length;i++){%>
+            <%if(i==0){%>
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="http://admin.<%= website %>/Epaper/<%=epaper[i].epaper_id%>/<%=epaper[i].path%>" alt="First slide">
+            </div>
+            <%} else {%>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="http://admin.<%= website %>/Epaper/<%=epaper[i].epaper_id%>/<%=epaper[i].path%>"  alt="Second slide">
+            </div>
+            <% } %>
+            <% } %>
+        </div>
+        <button class="carousel-control-prev" id="one" type="button" data-bs-target="#epaper-slider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" id="two" type="button" data-bs-target="#epaper-slider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+
+<!---->
+<h6>जिला</h6>
+<div class="row">
+    <% for(var i=0;i<subCategories.length;i++){ %>
+    <%var k = 0%>
+    <%if(user_filter[0].city.length != 0){%>
+    <%for(var l = 0;l<user_filter[0].city.length;l++){%>
+    <%if((user_filter[0].city)[l] == subCategories[i].name){%>
+    <%k++%>
+    <%}%>
+    <%}%>
+    <%}%>
+    <%if(k>0){%>
+    <div class="col-lg-3 col-6">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="city" value="<%= subCategories[i].name %>" id="<%= subCategories[i].name %>" checked>
+            <label class="form-check-label" for="<%= subCategories[i].name %>">
+                <%= subCategories[i].name %>
+            </label>
+        </div>
+    </div>
+    <%} else {%>
+    <div class="col-lg-3 col-6">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="city" value="<%= subCategories[i].name %>" id="<%= subCategories[i].name %>">
+            <label class="form-check-label" for="<%= subCategories[i].name %>">
+                <%= subCategories[i].name %>
+            </label>
+        </div>
+    </div>
+    <%}%>
+    <%}%>
+</div>
+<!---->
+<h6>शहर</h6>
+<div class="row">
+    <% for(var i=0;i<subCategoriesDistrict.length;i++){ %>
+    <%var k = 0%>
+    <%if(user_filter[0].district.length != 0){%>
+    <%for(var l = 0;l<user_filter[0].district.length;l++){%>
+    <%if((user_filter[0].district)[l] == subCategoriesDistrict[i].name){%>
+    <%k++%>
+    <%}%>
+    <%}%>
+    <%}%>
+    <%if(k>0){%>
+    <div class="col-lg-3 col-6">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="district" value="<%= subCategoriesDistrict[i].name %>" id="<%= subCategoriesDistrict[i].name %>" checked>
+            <label class="form-check-label" for="<%= subCategoriesDistrict[i].name %>">
+                <%= subCategoriesDistrict[i].name.split('(')[0] %>
+            </label>
+        </div>
+    </div>
+    <%} else {%>
+    <div class="col-lg-3 col-6">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="district" value="<%= subCategoriesDistrict[i].name %>" id="<%= subCategoriesDistrict[i].name %>">
+            <label class="form-check-label" for="<%= subCategoriesDistrict[i].name %>">
+                <%= subCategoriesDistrict[i].name.split('(')[0] %>
+            </label>
+        </div>
+    </div>
+    <%}%>
+    <%}%>
+</div>
+
+
+setInterval(function (){
+if(j<cl){
+$.ajax({
+url:"/getAllNews/" + k,
+dataType: "jsonp",
+type:"GET",
+success: function(news){
+if(news.length != 0){
+for(var i = 0;i<news.length;i++){
+var a = 'http://admin.<%= website %>/news_files/' + news[i].news_id +'/'+ news[i].front_image_path;
+var b = 'http://admin.<%= website %>/images/<%= imageReplacer %>';
+
+$('#subcatAll' + k).append('<div class="card news"><div class="row"><div class="<%=class1%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><h5><b style="color: '+news[i].hcolor+'">'+ news[i].title +'</b>:'+ news[i].short_description +'</h5></a></div><div class="<%=class2%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><img src="'+(news[i].front_image_path != null ? a : b )+'" alt="" style="border-radius:5px"><br><br></a></div></div><div class="row rextra"><div class="col-8 col-lg-9"><p class="cat">'+( news[i].sc_name != null ? news[i].sc_name.split('(')[0] : news[i].c_name )+'</p></div><div class="col-1 col-lg-1"><p><a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/'+ news[i].news_id +'" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-facebook-f"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://wa.me/?text=http://<%= website %>/each-news/'+ news[i].news_id +'%0D%0Dन्यूज़ के लिए आज ही ऐप इंस्टॉल करें।%0Dhttps://play.google.com/store/apps/details?id=<%=appId%>%0D%0Dसंपर्क करें 902-412-3007%0DGmail: <%= website %>@gmail.com%0D%0Dवीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें ।%0Dhttps://www.youtube.com/channel/UCMSgxxG0wN5lSjHP1mXKjBA"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://twitter.com/share?url=http://<%= website %>/each-news/'+ news[i].news_id +'&text='+ news[i].title +':'+ news[i].short_description +'" data-show-count="false" target="_blank" style="text-decoration: none;color: #B4B4B4;"><i class="fab fa-twitter"></i></a></p></div></div></div><hr style="padding: 0;margin: 0;background-color: #f7f7f7">');
+$("img").bind("error",function(){
+// Replacing image source
+$(this).attr("src","/images/<%= imageReplacer %>");
+});
+}
+}
+j++;
+if(document.getElementById('h' + j) != null){
+k = document.getElementById('h' + j).value;
+}
+},
+error: function(err){
+console.log(err.status);
+}
+});
+}
+},1000);

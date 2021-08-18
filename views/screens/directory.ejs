@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, minimum-scale=1">
+    <meta property="og:title" content="<%=title%>" />
+    <meta property="og:url" content="https://www.<%= website %>/" />
+    <meta property="og:image" content="/images/<%= imageReplacer %>">
+    <title><%=title%></title>
+    <link rel="icon" href="/images/<%=favicon%>" type="image/icon type">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- Add the latest firebase dependecies from CDN -->
+</head>
+<body onscroll="loadData()">
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="row" style="width:100%;margin: 0;height: 48px">
+            <div class="col-lg-3 col-6" >
+                <a class="navbar-brand" href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 32px;margin-top: 10px"></a>
+            </div>
+            <div class="col-lg-5 col-2"></div>
+            <div class="col-lg-4 col-4">
+                <div class="row icons" style="text-align: center;overflow: hidden">
+                    <div class="col-4">
+                        <h5>
+                            <a href="#career" data-bs-toggle="modal" style="text-decoration: none">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;<b id="carrer">संवादाता</b>
+                            </a>
+
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            <a href="/epaper" style="text-decoration: none">
+                                <i class="far fa-newspaper"></i>&nbsp;&nbsp;<b id="epaper">ई-पेपर</b>
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <%if(logged_in == 0){%>
+                            <h5>
+                                <a href="/login" style="text-decoration: none">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">लॉग इन</b>
+                                </a>
+                            </h5>
+                        <%} else {%>
+                            <h5>
+                                <a href="#user-menu" data-bs-toggle="modal" style="text-decoration: none;">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">अकाउंट</b>
+                                </a>
+                            </h5>
+
+
+
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid" style="text-align: center">
+        <div class="scrollmenu5" style="position: relative;z-index: 999999999">
+            <% for(var i=0;i<dcategory.length;i++){ %>
+                <a href="/directory/<%= dcategory[i].name %>"><span><%= dcategory[i].name%></span></a>
+            <% } %>
+        </div>
+    </div>
+</header>
+<div class="modal fade" id="user-menu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item" onclick="window.location.href ='/user-profile'">
+                        <a href="/user-profile" style="color: #1c1c1c">User Profile</a>
+                    </li>
+                    <li class="list-group-item" onclick="window.location.href ='/logout'">
+                        <a href="/logout" style="color: #1c1c1c">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+<main class="container">
+    <div class="row" style="text-align: left;" id="load-post">
+        <div class="col-12" style="padding: 0px 15px">
+            <h6>Recommended</h6>
+        </div>
+        <%for(var i=0;i<recommended_post.length;i++){%>
+            <%var a = recommended_post[i].created_at;%>
+            <%var d = new Date();%>
+            <%if(d.toString().slice(4,10)==a.toString().slice(4,10)){%>
+                <%var date = 'Today';%>
+            <%} else {%>
+                <%var date = a.toString().slice(4,10);%>
+            <%}%>
+            <div class="col-lg-3 col-6">
+                <div class="card" style="background-color: white;width: 100%;margin-top: 10px;border: 2px solid lightgrey;border-radius: 10px;" onclick="window.location.href = '/each-post/<%=recommended_post[i].id%>'">
+                    <div style="height: 120px;width: 100%;text-align: center;overflow: hidden;padding: 10px;margin: auto">
+                        <img src="/directory_images/<%=recommended_post[i].id%>/<%=recommended_post[i].path%>" alt="Card image cap" style="max-height: 100%;max-width: 100%">
+                    </div>
+                    <div class="card-body" style="padding: 5px 10px;">
+                        <h5 class="card-title" style="text-align: center"><b>Rs <%=recommended_post[i].price%></b></h5>
+                        <p style="font-size:14px;margin: 0px;text-align: left"><%=recommended_post[i].ad_title%></p>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-md-8 col-12">
+                                <p style="font-size: 10px;text-align: left;margin: 0"><%=recommended_post[i].address%></p>
+                            </div>
+                            <div class="col-md-4 col-12" style="">
+                                <p style="font-size: 10px;margin: 0;text-align: right"><%=date%></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</main>
+<br><br><br>
+<%if(logged_in == 0){%>
+    <a href="#select-category-login" data-bs-toggle="modal" class="btn btn-primary" id="sell" style="z-index: 999999999"> <i class="fas fa-plus-circle"></i> <span id="sell-text">Sell</span></a>
+    <div class="modal fade" id="select-category-login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please Login First</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="/login" class="btn btn-primary" style="background-color: #ED3237;border: 0;width: 100%">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%} else {%>
+    <a href="#select-category" data-bs-toggle="modal" class="btn btn-primary" id="sell"> <i class="fas fa-plus-circle"></i> <span id="sell-text">Sell</span></a>
+    <div class="modal fade" id="select-category" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <% for(var i=0;i<dcategory.length;i++){ %>
+                            <li class="list-group-item" onclick="window.location.href ='/posts/<%= dcategory[i].name%>'">
+                                <a href="/posts/<%= dcategory[i].name%>" style="color: #1c1c1c"><%= dcategory[i].name%></a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<%}%>
+
+<footer>
+    <div class="row">
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/news" class="de-active"><i class="fas fa-home"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/news" class="de-active">होम</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/search" class="de-active"><i class="fas fa-search"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/search" class="de-active">सर्च</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/videos" class="de-active"><i class="fas fa-play-circle"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/videos" class="de-active">वीडियो</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/directory" class="active"><i class="fas fa-folder"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/directory" class="active">वर्गीकृत</a></b></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<input type="hidden" name="" id="logged_in" value=<%=logged_in%>>
+<%if(logged_in == 1){%>
+<input type="hidden" name="" id="city" value=<%=city%>>
+<%}%>
+<script>
+    var logged_in = document.getElementById('logged_in').value;
+    if(logged_in == 0){
+        var k = 20;
+        function loadData(){
+            $.ajax({
+                url:"/getMorePost/" + k ,
+                dataType: "jsonp",
+                type:"GET",
+                success: function(recommended_post){
+                    console.log(recommended_post);
+                    for(var i=0;i<recommended_post.length;i++){
+                        var a = recommended_post[i].created_at;
+                        var dateParts = a.split("-");
+                        var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+                        var d = new Date();
+                        if(d.toString().slice(4,10)==jsDate.toString().slice(4,10)){
+                            var date = 'today';
+                        } else {
+                            var date = jsDate.toString().slice(4,10);
+                        }
+                        $('#load-post').append('<div class="col-lg-3 col-6"><div class="card" style="background-color: white;width: 100%;margin-top: 10px;border: 2px solid lightgrey;border-radius: 10px;"><div style="height: 120px;width: 100%;text-align: center;overflow: hidden;padding: 10px;margin: auto"><img src="/directory_images/'+recommended_post[i].id+'/'+recommended_post[i].path+'" alt="Card image cap" style="max-height: 100%;max-width: 100%"></div><div class="card-body" style="padding: 5px 10px;"><h5 class="card-title" style="text-align: center"><b>Rs '+recommended_post[i].price+'</b></h5><p style="font-size:14px;margin: 0px;text-align: left">'+recommended_post[i].ad_title+'</p><div class="row" style="margin-top: 10px"><div class="col-md-8 col-12"><p style="font-size: 10px;text-align: left;margin: 0">'+recommended_post[i].address+'</p></div><div class="col-md-4 col-12" style=""><p style="font-size: 10px;margin: 0;text-align: right">'+date+'</p></div></div></div></div></div>');
+                        $("img").bind("error",function(){
+                            // Replacing image source
+                            $(this).attr("src","/images/<%= imageReplacer %>");
+                        });
+                    }
+                },
+                error: function(err){
+                    console.log(err.status);
+                }
+            });
+            k=k+20;
+        }
+    } else {
+        var city = document.getElementById('city').value;
+        var k1 = 20;
+        var k2 = 20;
+        var r = setInterval(function (){
+            $.ajax({
+                url:"/getRecommendedPost/" + city + '/' + k1 ,
+                dataType: "jsonp",
+                type:"GET",
+                success: function(recommended_post){
+                    console.log(recommended_post);
+                    if(recommended_post.length !=0){
+                        for(var i=0;i<recommended_post.length;i++){
+                            var a = recommended_post[i].created_at;
+                            var dateParts = a.split("-");
+                            var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+                            var d = new Date();
+                            if(d.toString().slice(4,10)==jsDate.toString().slice(4,10)){
+                                var date = 'today';
+                            } else {
+                                var date = jsDate.toString().slice(4,10);
+                            }
+                            $('#load-post').append('<div class="col-lg-3 col-6"><div class="card" style="background-color: white;width: 100%;margin-top: 10px;border: 2px solid lightgrey;border-radius: 10px;"><div style="height: 120px;width: 100%;text-align: center;overflow: hidden;padding: 10px;margin: auto"><img src="/directory_images/'+recommended_post[i].id+'/'+recommended_post[i].path+'" alt="Card image cap" style="max-height: 100%;max-width: 100%"></div><div class="card-body" style="padding: 5px 10px;"><h5 class="card-title" style="text-align: center"><b>Rs '+recommended_post[i].price+'</b></h5><p style="font-size:14px;margin: 0px;text-align: left">'+recommended_post[i].ad_title+'</p><div class="row" style="margin-top: 10px"><div class="col-md-8 col-12"><p style="font-size: 10px;text-align: left;margin: 0">'+recommended_post[i].address+'</p></div><div class="col-md-4 col-12" style=""><p style="font-size: 10px;margin: 0;text-align: right">'+date+'</p></div></div></div></div></div>');
+                            $("img").bind("error",function(){
+                                // Replacing image source
+                                $(this).attr("src","/images/<%= imageReplacer %>");
+                            });
+                        }
+                    } else {
+                        $.ajax({
+                            url:"/getMorePost/" + city + '/0' ,
+                            dataType: "jsonp",
+                            type:"GET",
+                            success: function(recommended_post){
+                                console.log(recommended_post);
+                                for(var i=0;i<recommended_post.length;i++){
+                                    var a = recommended_post[i].created_at;
+                                    var dateParts = a.split("-");
+                                    var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+                                    var d = new Date();
+                                    if(d.toString().slice(4,10)==jsDate.toString().slice(4,10)){
+                                        var date = 'today';
+                                    } else {
+                                        var date = jsDate.toString().slice(4,10);
+                                    }
+                                    $('#load-post').append('<div class="col-lg-3 col-6"><div class="card" style="background-color: white;width: 100%;margin-top: 10px;border: 2px solid lightgrey;border-radius: 10px;"><div style="height: 120px;width: 100%;text-align: center;overflow: hidden;padding: 10px;margin: auto"><img src="/directory_images/'+recommended_post[i].id+'/'+recommended_post[i].path+'" alt="Card image cap" style="max-height: 100%;max-width: 100%"></div><div class="card-body" style="padding: 5px 10px;"><h5 class="card-title" style="text-align: center"><b>Rs '+recommended_post[i].price+'</b></h5><p style="font-size:14px;margin: 0px;text-align: left">'+recommended_post[i].ad_title+'</p><div class="row" style="margin-top: 10px"><div class="col-md-8 col-12"><p style="font-size: 10px;text-align: left;margin: 0">'+recommended_post[i].address+'</p></div><div class="col-md-4 col-12" style=""><p style="font-size: 10px;margin: 0;text-align: right">'+date+'</p></div></div></div></div></div>');
+                                    $("img").bind("error",function(){
+                                        // Replacing image source
+                                        $(this).attr("src","/images/<%= imageReplacer %>");
+                                    });
+                                }
+                            },
+                            error: function(err){
+                                console.log(err.status);
+                            }
+                        });
+                        clearInterval(r);
+                    }
+                },
+                error: function(err){
+                    console.log(err.status);
+                }
+            });
+            k1=k1+20;
+        },1000);
+        function loadData(){
+            $.ajax({
+                url:"/getMorePost/" + city + '/' + k2 ,
+                dataType: "jsonp",
+                type:"GET",
+                success: function(recommended_post){
+                    // console.log(recommended_post);
+                    for(var i=0;i<recommended_post.length;i++){
+                        var a = recommended_post[i].created_at;
+                        var dateParts = a.split("-");
+                        var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2));
+                        var d = new Date();
+                        if(d.toString().slice(4,10)==jsDate.toString().slice(4,10)){
+                            var date = 'today';
+                        } else {
+                            var date = jsDate.toString().slice(4,10);
+                        }
+                        $('#load-post').append('<div class="col-lg-3 col-6"><div class="card" style="background-color: white;width: 100%;margin-top: 10px;border: 2px solid lightgrey;border-radius: 10px;"><div style="height: 120px;width: 100%;text-align: center;overflow: hidden;padding: 10px;margin: auto"><img src="/directory_images/'+recommended_post[i].id+'/'+recommended_post[i].path+'" alt="Card image cap" style="max-height: 100%;max-width: 100%"></div><div class="card-body" style="padding: 5px 10px;"><h5 class="card-title" style="text-align: center"><b>Rs '+recommended_post[i].price+'</b></h5><p style="font-size:14px;margin: 0px;text-align: left">'+recommended_post[i].ad_title+'</p><div class="row" style="margin-top: 10px"><div class="col-md-8 col-12"><p style="font-size: 10px;text-align: left;margin: 0">'+recommended_post[i].address+'</p></div><div class="col-md-4 col-12" style=""><p style="font-size: 10px;margin: 0;text-align: right">'+date+'</p></div></div></div></div></div>')
+                        $("img").bind("error",function(){
+                            // Replacing image source
+                            $(this).attr("src","/images/<%= imageReplacer %>");
+                        });
+                    }
+                },
+                error: function(err){
+                    console.log(err.status);
+                }
+            });
+            k2=k2+20;
+        }
+    }
+    $(document).ready(function (){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/<%= imageReplacer %>");
+        });
+    });
+</script>
+<%- include('../navigation/footer') %>

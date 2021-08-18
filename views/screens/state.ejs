@@ -1,0 +1,276 @@
+<%- include('../navigation/header') %>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="row" style="width:100%;margin: 0;height: 48px">
+            <div class="col-lg-3 col-6" >
+                <a class="navbar-brand" href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 32px;margin-top: 10px"></a>
+            </div>
+            <div class="col-lg-5 col-2"></div>
+            <div class="col-lg-4 col-4">
+                <div class="row icons" style="text-align: center;overflow: hidden">
+                    <div class="col-4">
+                        <h5>
+                            <a href="#career" data-bs-toggle="modal" style="text-decoration: none">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;<b id="carrer">संवादाता</b>
+                            </a>
+
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            <a href="/epaper" style="text-decoration: none">
+                                <i class="far fa-newspaper"></i>&nbsp;&nbsp;<b id="epaper">ई-पेपर</b>
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <%if(logged_in == 0){%>
+                            <h5>
+                                <a href="/login" style="text-decoration: none">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">लॉग इन</b>
+                                </a>
+                            </h5>
+                        <%} else {%>
+                            <h5>
+                                <a href="#user-menu" data-bs-toggle="modal" style="text-decoration: none;">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">अकाउंट</b>
+                                </a>
+                            </h5>
+
+                            <div class="modal fade" id="user-menu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" onclick="window.location.href ='/user-profile'">
+                                                    <a href="/user-profile" style="color: #1c1c1c">User Profile</a>
+                                                </li>
+                                                <li class="list-group-item" onclick="window.location.href ='/logout'">
+                                                    <a href="/logout" style="color: #1c1c1c">Logout</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<main class="mainbody">
+    <div class="row" style="padding: 0;">
+        <div class="col-lg-3 col-md-12">
+            <div class="scrollmenu4">
+                <ul>
+                    <% for(var i=0;i<categories.length;i++){ %>
+                    <li onclick="window.location.href = '/news#cat<%=i%>'" id="catscrollbar<%=i%>">
+                        <a href="/news#cat<%=i%>"><%= categories[i].name%> </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 each-news-main" id="stateNews" style="padding: 0;"  onscroll="getStateData()">
+                <h5 class="title" style="margin-top: 50px"><%= state %></h5>
+                <hr style="padding: 0;margin: 0;background-color: #f7f7f7">
+                    <% for(var i=0;i<news2.length;i++){ %>
+                        <div class="card news">
+                            <div class="row">
+                                <div class="<%=class1%>">
+                                    <a href="/each-news/<%= news2[i].news_id %>" style="text-decoration: none;color: black">
+                                        <h5>
+                                            <b style="color: <%= news2[i].hcolor %>"><%= news2[i].title %></b>:<%= news2[i].short_description %></h5>
+                                    </a>
+                                </div>
+                                <div class="<%=class2%>">
+                                    <a href="/each-news/<%= news2[i].news_id %>" style="text-decoration: none;color: black">
+                                        <%if(news2[i].front_image_path != null){%>
+                                            <img src="http://admin.<%= website %>/news_files/<%= news2[i].news_id%>/<%= news2[i].front_image_path%>" alt=""  style="border-radius: 5px">
+                                            <br><br>
+                                        <%} else {%>
+                                            <img src="http://admin.<%= website %>/images/<%= imageReplacer %>" alt=""  style="border-radius: 5px">
+                                            <br><br>
+                                        <%}%>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-8 col-lg-9">
+                                    <%if(news2[i].sc_name !=null){%>
+                                        <p class="cat"><%= news2[i].sc_name %></p>
+                                    <%} else {%>
+                                        <p class="cat"><%= news2[i].c_name %></p>
+                                    <%}%>
+                                </div>
+                                <div class="col-1 col-lg-1">
+                                    <p>
+                                        <a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/<%= news2[i].news_id %>" target="_blank" style="color: #B4B4B4;text-decoration: none">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-1 col-lg-1">
+                                    <p>
+                                        <a href="https://wa.me/?text=http://<%= website %>/each-news/<%= news2[i].news_id %>%0D%0Dन्यूज़ के लिए आज ही ऐप इंस्टॉल करें।%0Dhttps://play.google.com/store/apps/details?id=<%=appId%>%0D%0Dसंपर्क करें 902-412-3007%0DGmail: <%= website %>@gmail.com%0D%0Dवीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें ।%0Dhttps://www.youtube.com/channel/UCMSgxxG0wN5lSjHP1mXKjBA"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-1 col-lg-1">
+                                    <p>
+                                        <a href="https://twitter.com/share?url=http://<%= website %>/each-news/<%= news2[i].news_id %>&text=<%= news2[i].title %>:<%= news2[i].short_description %>" data-show-count="false" target="_blank" style="text-decoration: none;color: #B4B4B4;"><i class="fab fa-twitter"></i>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="padding: 0;margin: 0;background-color: #f7f7f7">
+                    <% } %>
+        </div>
+        <div class="col-lg-4 col-md-12 main-slider2">
+            <div class="container c5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                            <% for(var k=0;k<slider.length;k++){ %>
+                            <%if(k==0){%>
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="http://admin.<%= website %>/slider_images/<%= slider[k].image_path%>" onclick="window.location.href = '/images/slider_images/<%= slider[k].image_path%>'" alt="First slide">
+                                </div>
+                            <%} else {%>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="http://admin.<%= website %>/slider_images/<%= slider[k].image_path%>" onclick="window.location.href = '/images/slider_images/<%= slider[k].image_path%>'" alt="Second slide">
+                                </div>
+                            <% } %>
+                            <% } %>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</main>
+
+<input type="hidden" name="" id="state" value="<%= state %>">
+<footer>
+    <div class="row">
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/news" class="active"><i class="fas fa-home"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/news" class="active">होम</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/search" class="de-active"><i class="fas fa-search"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/search" class="de-active">सर्च</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/videos" class="de-active"><i class="fas fa-play-circle"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/videos" class="de-active">वीडियो</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/directory" class="de-active"><i class="fas fa-folder"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/directory" class="de-active">वर्गीकृत</a></b></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!--Bootstrap links-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!---->
+<!--<script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>-->
+<script>
+    var state = document.getElementById('state').value
+    var k1 = 10;
+    function getStateData(){
+        $.ajax({
+            url:"http://<%= website %>/getStateNews/" + k1 + '/' + state,
+            dataType: "jsonp",
+            type:"GET",
+            success: function(news){
+                if(news.length != 0){
+                    for(var i = 0;i<news.length;i++){
+                        var a = 'http://admin.<%= website %>/news_files/' + news[i].news_id +'/'+ news[i].front_image_path;
+                        var b = 'http://admin.<%= website %>/images/<%= imageReplacer %>';
+
+                        $('#stateNews').append('<div class="card news"><div class="row"><div class="<%=class1%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><h5><b style="color: '+news[i].hcolor+'">'+ news[i].title +'</b>:'+ news[i].short_description +'</h5></a></div><div class="<%=class2%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><img src="'+(news[i].front_image_path != null ? a : b )+'" alt="" style="border-radius:5px"><br><br></a></div></div><div class="row rextra"><div class="col-8 col-lg-9"><p class="cat">'+( news[i].sc_name != null ? news[i].sc_name : news[i].c_name )+'</p></div><div class="col-1 col-lg-1"><p><a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/'+ news[i].news_id +'" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-facebook-f"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://wa.me/?text= न्यूज़ के लिए आज ही ऐप इंस्टॉल करें। https://play.google.com/store/apps/details?id=<%=appId%>    संपर्क करें 902-412-3007  Gmail:<%= website %>@gmail.com  वीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें । https://www.youtube.com/channel/UCMSgxxG0wN5lSjHP1mXKjBA"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://twitter.com/share?url=http://<%= website %>/each-news/'+ news[i].news_id +'&text='+ news[i].title +':'+ news[i].short_description +'" data-show-count="false" target="_blank" style="text-decoration: none;color: #B4B4B4;"><i class="fab fa-twitter"></i></a></p></div></div></div><hr style="padding: 0;margin: 0;background-color: #f7f7f7">');
+                        $("img").bind("error",function(){
+                            // Replacing image source
+                            $(this).attr("src","/images/<%= imageReplacer %>");
+                        });
+                    }
+                }
+            },
+            error: function(err){
+                console.log(err.status);
+            }
+        });
+        k1 = k1 + 10;
+    }
+    $(document).ready(function (){
+        $("img").bind("error",function(){
+            // Replacing image source
+            $(this).attr("src","/images/<%= imageReplacer %>");
+        });
+    });
+</script>
+<%- include('../navigation/footer') %>

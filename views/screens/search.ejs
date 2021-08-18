@@ -1,0 +1,184 @@
+<%- include('../navigation/header') %>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="row" style="width:100%;margin: 0;height: 48px">
+            <div class="col-lg-3 col-6" >
+                <a class="navbar-brand" href="/news"><img src="http://admin.<%= website %>/logo/<%= logo[0].path %>" alt="" style="height: 32px;margin-top: 10px"></a>
+            </div>
+            <div class="col-lg-5 col-2"></div>
+            <div class="col-lg-4 col-4">
+                <div class="row icons" style="text-align: center;overflow: hidden">
+                    <div class="col-4">
+                        <h5>
+                            <a href="#career" data-bs-toggle="modal" style="text-decoration: none">
+                                <i class="fas fa-user-tie"></i>&nbsp;&nbsp;<b id="carrer">संवादाता</b>
+                            </a>
+
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <h5>
+                            <a href="/epaper" style="text-decoration: none">
+                                <i class="far fa-newspaper"></i>&nbsp;&nbsp;<b id="epaper">ई-पेपर</b>
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-4">
+                        <%if(logged_in == 0){%>
+                            <h5>
+                                <a href="/login" style="text-decoration: none">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">लॉग इन</b>
+                                </a>
+                            </h5>
+                        <%} else {%>
+                            <h5>
+                                <a href="#user-menu" data-bs-toggle="modal" style="text-decoration: none;">
+                                    <i class="fas fa-user-circle"></i>&nbsp;&nbsp;<b id="log-in">अकाउंट</b>
+                                </a>
+                            </h5>
+
+                            <div class="modal fade" id="user-menu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5)">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" onclick="window.location.href ='/user-profile'">
+                                                    <a href="/user-profile" style="color: #1c1c1c">User Profile</a>
+                                                </li>
+                                                <li class="list-group-item" onclick="window.location.href ='/logout'">
+                                                    <a href="/logout" style="color: #1c1c1c">Logout</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="position: relative;z-index: 999999999">
+        <div class="form-group" style="padding: 10px 15px">
+            <input type="text" name="" id="myInput" class="form-control" placeholder="अपनी रूचि या शहर खोजें" onkeyup="myFunction()" style="border: 1px solid #d7d7d7;background-color: #eeeeee">
+        </div>
+    </div>
+</header>
+<div class="modal fade" id="career" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="background-color: rgba(0,0,0,0.5);z-index: 9999999999">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">करियर</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/login" style="color: white" class="btn btn-primary">संवादाता लॉगिन</a>
+                    </div>
+                    <div class="col-6" style="text-align: center">
+                        <a href="http://admin.<%= website %>/career" style="color: white" class="btn btn-danger">संवादाता  रजिस्टर  करें!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <table class="table" id="myTable">
+        <tbody>
+        <% for(var i=0;i<categories.length;i++){ %>
+        <tr>
+            <td onclick="window.location.href = '/news#<%= categories[i].name%>'"><a href="/news#<%= categories[i].name%>" style="text-decoration: none"><%= categories[i].name%></a></td>
+        </tr>
+        <% } %>
+        <% for(var i=0;i<states.length;i++){ %>
+            <tr>
+                <td onclick="window.location.href = '/city/<%= states[i].name%>'">
+                    <a href="/city/<%= states[i].name%>" style="text-decoration: none"><%= states[i].name%></a>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+
+<footer>
+    <div class="row">
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/news" class="de-active"><i class="fas fa-home"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/news" class="de-active">होम</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/search" class="active"><i class="fas fa-search"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/search" class="active">सर्च</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/videos" class="de-active"><i class="fas fa-play-circle"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/videos" class="de-active">वीडियो</a></b></h6>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul class="footer-ul">
+                <li>
+                    <h4><a href="/directory" class="de-active"><i class="fas fa-folder"></i></a></h4>
+                </li>
+                <li>
+                    <h6><b><a href="/directory" class="de-active">वर्गीकृत</a></b></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function searchContent(a){
+        console.log(a);
+    }
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+<%- include('../navigation/footer') %>
