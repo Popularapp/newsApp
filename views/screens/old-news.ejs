@@ -435,7 +435,7 @@
             setInterval(function (){
                 if(t<scl){
                     $.ajax({
-                        url:"/getSubCategoryNews/" + q,
+                        url:"http://admin.popularapp.in/api/getSubCategoryNews/" + q,
                         dataType: "jsonp",
                         type:"GET",
                         success: function(news){
@@ -469,7 +469,7 @@
     setInterval(function (){
         if(j<cl){
             $.ajax({
-                url:"/getAllNews/" + k,
+                url:"http://admin.popularapp.in/api/getAllNews/" + k,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -507,7 +507,7 @@
     }
     function getMoreNewsCat(a1){
         $.ajax({
-            url:"/getAllNews/" + a1 + '/' + k1[a1-1],
+            url:"http://admin.popularapp.in/api/getAllNews/" + a1 + '/' + k1[a1-1],
             dataType: "jsonp",
             type:"GET",
             success: function(news){
@@ -532,7 +532,7 @@
     }
     function getMoreNewsSubCat(a2,j2){
         $.ajax({
-            url:"/getSubCategoryNews/" + a2 + '/' + k2[j2],
+            url:"http://admin.popularapp.in/api/getSubCategoryNews/" + a2 + '/' + k2[j2],
             dataType: "jsonp",
             type:"GET",
             success: function(news){

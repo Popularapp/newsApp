@@ -7,11 +7,7 @@
     <meta name="og:description" content="<%= news[0].short_description%>">
     <meta property="og:url" content="https://www.<%= website %>/each-news/<%= news[0].news_id%>" />
     <%if(news[0].front_image_path != null){%>
-    <%if(news[0].front_image_path.slice(0,5) == 'https'){%>
-        <meta property="og:image" content="<%= news[0].front_image_path%>">
-    <%} else {%>
         <meta property="og:image" content="http://admin.<%= website %>/news_files/<%= news[0].news_id%>/<%= news[0].front_image_path%>">
-    <%}%>
     <%} else {%>
         <meta property="og:image" content="/images/<%= imageReplacer %>">
     <%}%>
@@ -103,19 +99,11 @@
                             <% for(var k=0;k<images.length;k++){ %>
                             <%if(t==0){%>
                                 <div class="carousel-item active" style="height: 200px;text-align: center">
-                                    <%if(images[k].path.slice(0,5) == 'https'){%>
-                                        <img src="<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" style="max-width: 100%;max-height: 100%;">
-                                    <%} else {%>
-                                        <img src="http://admin.<%= website %>/image_files/<%= images[k].news_id%>/<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" style="max-width: 100%;max-height: 100%;">
-                                    <%}%>
+                                    <img src="http://admin.<%= website %>/image_files/<%= images[k].news_id%>/<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" style="max-width: 100%;max-height: 100%;">
                                 </div>
                             <%} else {%>
                                 <div class="carousel-item" style="height: 200px;text-align: center">
-                                    <%if(images[k].path.slice(0,5) == 'https'){%>
-                                        <img src="<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" alt="Second slide" style="max-width: 100%;max-height: 100%;">
-                                    <%} else {%>
-                                        <img src="http://admin.<%= website %>/image_files/<%= images[k].news_id%>/<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" alt="Second slide" style="max-width: 100%;max-height: 100%;">
-                                    <%}%>
+                                    <img src="http://admin.<%= website %>/image_files/<%= images[k].news_id%>/<%= images[k].path%>" onclick="window.location.href = '/images/image_files/<%= images[k].news_id%>/<%= images[k].path%>'" alt="Second slide" style="max-width: 100%;max-height: 100%;">
                                 </div>
                             <% } %>
                             <%t++;%>
@@ -123,11 +111,7 @@
                             <%if(t==0){%>
                             <div class="carousel-item active" style="height: 200px;text-align: center">
                                 <%if(news[0].front_image_path != null){%>
-                                <%if(news[0].front_image_path.slice(0,5) == 'https'){%>
-                                    <img src="<%= news[0].front_image_path%>" onclick="window.location.href = '/images/news_files/<%= news[0].news_id%>/<%= news[0].front_image_path%>'" style="max-width: 100%;max-height: 100%;" alt="front image">
-                                <%} else {%>
                                     <img src="http://admin.<%= website %>/news_files/<%= news[0].news_id%>/<%= news[0].front_image_path%>" onclick="window.location.href = '/images/news_files/<%= news[0].news_id%>/<%= news[0].front_image_path%>'" style="max-width: 100%;max-height: 100%;" alt="front image">
-                                <%}%>
                                 <br>
                                 <%} else {%>
                                     <img src="http://admin.<%= website %>/images/<%= imageReplacer %>" alt="" style="border-radius: 5px">
@@ -219,11 +203,7 @@
                                 <div class="<%=class2%>">
                                     <a href="/each-news/<%= news2[i].news_id %>" style="text-decoration: none;color: black">
                                         <%if(news2[i].front_image_path != null){%>
-                                        <%if(news2[i].front_image_path.slice(0,5) == 'https'){%>
-                                            <img src="<%= news2[i].front_image_path%>" alt="" style="border-radius: 5px">
-                                        <%} else {%>
                                             <img src="http://admin.<%= website %>/news_files/<%= news2[i].news_id%>/<%= news2[i].front_image_path%>" alt="" style="border-radius: 5px">
-                                        <%}%>
                                         <br><br>
                                         <%} else {%>
                                             <img src="http://admin.<%= website %>/images/<%= imageReplacer %>" alt="" style="border-radius: 5px">
@@ -311,7 +291,7 @@
 
     function increaseViewCount() {
         $.ajax({
-            url:"/increaseCount/" + news_id,
+            url:"http://admin.popularapp.in/api/increaseCount/" + news_id,
             dataType: "jsonp",
             type:"GET",
             success: function(news){
@@ -335,17 +315,13 @@
     var sc_name = document.getElementById('subcat').value;
     function getMoreNews(){
         $.ajax({
-            url:"/getSimiliarNews/" + sc_name + '/' + k1,
+            url:"http://admin.popularapp.in/api/getSimiliarNews/" + sc_name + '/' + k1,
             dataType: "jsonp",
             type:"GET",
             success: function(news){
                 if(news.length != 0){
                     for(var i = 0;i<news.length;i++){
-                        if(news[i].front_image_path.slice(0,5) == 'https'){
-                            var a = news[i].front_image_path;
-                        } else {
-                            var a = 'http://admin.<%= website %>/news_files/' + news[i].news_id + '/' + news[i].front_image_path;
-                        }
+                        var a = 'http://admin.<%= website %>/news_files/' + news[i].news_id + '/' + news[i].front_image_path;
                         var b = 'http://admin.<%= website %>/images/<%= imageReplacer %>';
 
                         $('#add-news').append('<div class="card news"><div class="row"><div class="<%=class1%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><h5><b style="color: '+news[i].hcolor+'">'+ news[i].title +'</b>:'+ news[i].short_description +'</h5></a></div><div class="<%=class2%>"><a href="/each-news/'+ news[i].news_id+'" style="text-decoration: none;color: black"><img src="'+(news[i].front_image_path != null ? a : b )+'" alt="" style="border-radius:5px"><br><br></a></div></div><div class="row rextra"><div class="col-8 col-lg-9"><p class="cat">'+( news[i].sc_name != null ? news[i].sc_name.split('(')[0] : news[i].c_name )+'</p></div><div class="col-1 col-lg-1"><p><a href="https://www.facebook.com/sharer.php?u=<%= website %>/each-news/'+ news[i].news_id +'" target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-facebook-f"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://wa.me/?text= न्यूज़ के लिए आज ही ऐप इंस्टॉल करें। https://play.google.com/store/apps/details?id=<%=appId%>    संपर्क करें 902-412-3007  Gmail:<%= website %>@gmail.com  वीडियो खबरों के लिए नीचे दिए लिंक को पर क्लिक करें और तुरंत सब्सक्राइब करें । https://www.youtube.com/channel/UCMSgxxG0wN5lSjHP1mXKjBA"  target="_blank" style="color: #B4B4B4;text-decoration: none"><i class="fab fa-whatsapp"></i></a></p></div><div class="col-1 col-lg-1"><p><a href="https://twitter.com/share?url=http://<%= website %>/each-news/'+ news[i].news_id +'&text='+ news[i].title +':'+ news[i].short_description +'" data-show-count="false" target="_blank" style="text-decoration: none;color: #B4B4B4;"><i class="fab fa-twitter"></i></a></p></div></div></div><hr style="padding: 0;margin: 0;background-color: #f7f7f7">');

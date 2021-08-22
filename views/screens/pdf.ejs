@@ -289,7 +289,7 @@
     var epaper_id = document.getElementById('epaper_id').value;
     function increaseViewCount() {
         $.ajax({
-            url:"/increaseEpaperCount/" + epaper_id,
+            url:"http://admin.popularapp.in/api/increaseEpaperCount/" + epaper_id,
             dataType: "jsonp",
             type:"GET",
             success: function(news){
