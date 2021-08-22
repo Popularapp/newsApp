@@ -513,7 +513,7 @@
     function getData(){
         if(scl == 0 && ccl == 0 && dcl == 0){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/local",
+                url:"/getAllNews/local",
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -548,7 +548,7 @@
             setInterval(function (){
                 if(t1<ccl){
                     $.ajax({
-                        url:"http://admin.popularapp.in/api/getSubCategoryNewsCity/" + q1,
+                        url:"/getSubCategoryNewsCity/" + q1,
                         dataType: "jsonp",
                         type:"GET",
                         success: function(news){
@@ -586,7 +586,7 @@
             setInterval(function (){
                 if(t2<dcl){
                     $.ajax({
-                        url:"http://admin.popularapp.in/api/getSubCategoryNewsCity/" + q2,
+                        url:"/getSubCategoryNewsCity/" + q2,
                         dataType: "jsonp",
                         type:"GET",
                         success: function(news){
@@ -624,7 +624,7 @@
             setInterval(function (){
                 if(t<scl){
                     $.ajax({
-                        url:"http://admin.popularapp.in/api/getSubCategoryNewsState/" + q,
+                        url:"/getSubCategoryNewsState/" + q,
                         dataType: "jsonp",
                         type:"GET",
                         success: function(news){
@@ -665,7 +665,7 @@
         window.location.href = '#'+name;
         if(id == "all"){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                url:"/getAllNews/" + id,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -696,7 +696,7 @@
             // console.log(ccl);
             if(scl == 0 && ccl == 0){
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                    url:"/getAllNews/" + id,
                     dataType: "jsonp",
                     type:"GET",
                     success: function(news){
@@ -726,7 +726,7 @@
             }
         } else {
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + name,
+                url:"/getAllNews/" + name,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -765,7 +765,7 @@
         window.location.href = '#'+name;
         if(id == "all"){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                url:"/getAllNews/" + id,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -794,7 +794,7 @@
         } else if(id == "local"){
             if(scl == 0 && ccl == 0){
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                    url:"/getAllNews/" + id,
                     dataType: "jsonp",
                     type:"GET",
                     success: function(news){
@@ -824,7 +824,7 @@
             }
         } else {
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + name,
+                url:"/getAllNews/" + name,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -866,7 +866,7 @@
             var id = $('.each-category')[k].getAttribute('id');
             if(id == "all"){
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                    url:"/getAllNews/" + id,
                     dataType: "jsonp",
                     type:"GET",
                     success: function(news){
@@ -898,7 +898,7 @@
                 // console.log(ccl);
                 if(scl == 0 && ccl == 0){
                     $.ajax({
-                        url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                        url:"/getAllNews/" + id,
                         dataType: "jsonp",
                         type:"GET",
                         success: function(news){
@@ -928,7 +928,7 @@
                 }
             } else {
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getAllNews/" + id,
+                    url:"/getAllNews/" + id,
                     dataType: "jsonp",
                     type:"GET",
                     success: function(news){
@@ -971,7 +971,7 @@
             for(var i=0;i<selected.length;i++){
                 // console.log();
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getFilterCity/" + selected[i].getAttribute('id'),
+                    url:"/getFilterCity/" + selected[i].getAttribute('id'),
                     dataType: "jsonp",
                     type:"GET",
                     success: function(city){
@@ -1008,7 +1008,7 @@
             for(var i=0;i<selected.length;i++){
                 // console.log();
                 $.ajax({
-                    url:"http://admin.popularapp.in/api/getFilterDistrict/" + selected[i].getAttribute('id'),
+                    url:"/getFilterDistrict/" + selected[i].getAttribute('id'),
                     dataType: "jsonp",
                     type:"GET",
                     success: function(district){
@@ -1059,7 +1059,7 @@
         if(a1 == 'all') {
             // console.log(a1);
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + a1 + '/' + k1[0],
+                url:"/getAllNews/" + a1 + '/' + k1[0],
                 dataType: "jsonp",
                 type: "GET",
                 success: function (news) {
@@ -1085,7 +1085,7 @@
             // console.log(k1);
         }else if(a1 == 'local'){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + a1 + '/' + k1[1],
+                url:"/getAllNews/" + a1 + '/' + k1[1],
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -1115,7 +1115,7 @@
             k1[1] = k1[1] + 10;
         } else {
             $.ajax({
-                url:"http://admin.popularapp.in/api/getAllNews/" + a1 + '/' + k1[parseInt(a1)-1],
+                url:"/getAllNews/" + a1 + '/' + k1[parseInt(a1)-1],
                 dataType: "jsonp",
                 type:"GET",
                 success: function(news){
@@ -1141,7 +1141,7 @@
     }
     function getMoreNewsSubCatState(a2,j2){
         $.ajax({
-            url:"http://admin.popularapp.in/api/getSubCategoryNewsState/" + a2 + '/' + k2[j2],
+            url:"/getSubCategoryNewsState/" + a2 + '/' + k2[j2],
             dataType: "jsonp",
             type:"GET",
             success: function(news){
@@ -1166,7 +1166,7 @@
     }
     function getMoreNewsSubCatCity(a2,j2){
         $.ajax({
-            url:"http://admin.popularapp.in/api/getSubCategoryNewsCity/" + a2 + '/' + k3[j2],
+            url:"/getSubCategoryNewsCity/" + a2 + '/' + k3[j2],
             dataType: "jsonp",
             type:"GET",
             success: function(news){
@@ -1194,7 +1194,7 @@
         // console.log(a2);
         // console.log(j2);
         $.ajax({
-            url:"http://admin.popularapp.in/api/getSubCategoryNewsCity/" + a2 + '/' + k4[j2],
+            url:"/getSubCategoryNewsCity/" + a2 + '/' + k4[j2],
             dataType: "jsonp",
             type:"GET",
             success: function(news){

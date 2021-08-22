@@ -291,7 +291,7 @@
 
     function increaseViewCount() {
         $.ajax({
-            url:"http://admin.popularapp.in/api/increaseCount/" + news_id,
+            url:"/increaseCount/" + news_id,
             dataType: "jsonp",
             type:"GET",
             success: function(news){
@@ -315,7 +315,7 @@
     var sc_name = document.getElementById('subcat').value;
     function getMoreNews(){
         $.ajax({
-            url:"http://admin.popularapp.in/api/getSimiliarNews/" + sc_name + '/' + k1,
+            url:"/getSimiliarNews/" + sc_name + '/' + k1,
             dataType: "jsonp",
             type:"GET",
             success: function(news){

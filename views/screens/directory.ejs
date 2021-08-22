@@ -246,7 +246,7 @@
         var k = 20;
         function loadData(){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getMorePost/" + k ,
+                url:"/getMorePost/" + k ,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(recommended_post){
@@ -280,7 +280,7 @@
         var k2 = 20;
         var r = setInterval(function (){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getRecommendedPost/" + city + '/' + k1 ,
+                url:"/getRecommendedPost/" + city + '/' + k1 ,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(recommended_post){
@@ -304,7 +304,7 @@
                         }
                     } else {
                         $.ajax({
-                            url:"http://admin.popularapp.in/api/getMorePost/" + city + '/0' ,
+                            url:"/getMorePost/" + city + '/0' ,
                             dataType: "jsonp",
                             type:"GET",
                             success: function(recommended_post){
@@ -341,7 +341,7 @@
         },1000);
         function loadData(){
             $.ajax({
-                url:"http://admin.popularapp.in/api/getMorePost/" + city + '/' + k2 ,
+                url:"/getMorePost/" + city + '/' + k2 ,
                 dataType: "jsonp",
                 type:"GET",
                 success: function(recommended_post){

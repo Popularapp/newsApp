@@ -212,7 +212,7 @@ https://wa.me/?text=http://<%= website %>/each-news/'+ news[i].news_id +'  рдире
 setInterval(function (){
 if(j<cl){
 $.ajax({
-url:"http://admin.popularapp.in/api/getAllNews/" + k,
+url:"/getAllNews/" + k,
 dataType: "jsonp",
 type:"GET",
 success: function(news){

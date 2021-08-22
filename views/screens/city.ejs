@@ -251,7 +251,7 @@
     var k1 = 10;
     function getStateData(){
         $.ajax({
-            url:"http://admin.popularapp.in/api/getCityNews/" + k1 + '/' + state,
+            url:"/getCityNews/" + k1 + '/' + state,
             dataType: "jsonp",
             type:"GET",
             success: function(news){
